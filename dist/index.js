@@ -5831,7 +5831,7 @@ exec(
           "/"
         )[0],
         body: `
-          packageList: ${packageList}
+          packageList: ${JSON.stringify(packageList)}
           GITHUB_BASE_REF: ${process.env.GITHUB_BASE_REF}
           GITHUB_HEAD_REF: ${process.env.GITHUB_HEAD_REF}
           requests: ${JSON.stringify(requests)}
