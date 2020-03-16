@@ -1,6 +1,6 @@
 {
   "name": "check-my-bundlephobia",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Github action to check for new added packages size on bundlephobia",
   "main": "index.js",
   "scripts": {
