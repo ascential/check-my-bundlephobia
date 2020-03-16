@@ -19,13 +19,15 @@ exec(
           "User-Agent": "bundle-phobia-cli",
           "X-Bundlephobia-User": "bundle-phobia-cli"
         }
-      }).then(r =>
-        r.json().then(l => {
+      }).then(r => {
+        console.log("package response", package);
+        return r.json().then(l => {
+          console.log("package json", l);
           if (!l.error) {
             sizes.push({ name: l.name, gzip: l.gzip, size: l.size, package });
           }
-        })
-      )
+        });
+      })
     );
     if (
       process.env.GITHUB_REF.split("refs/pull/") &&
