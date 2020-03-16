@@ -5831,6 +5831,9 @@ exec(
           "/"
         )[0],
         body: `
+          out: ${JSON.stringify(out)}
+          err: ${JSON.stringify(err)}
+          e: ${JSON.stringify(e)}
           packageList: ${JSON.stringify(packageList)}
           GITHUB_BASE_REF: ${process.env.GITHUB_BASE_REF}
           GITHUB_HEAD_REF: ${process.env.GITHUB_HEAD_REF}
