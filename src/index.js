@@ -31,34 +31,35 @@ exec(
     );
     if (
       process.env.GITHUB_REF.split("refs/pull/") &&
-      process.env.GITHUB_REPOSITORY.split("/") &&
-      sizes.length
+      process.env.GITHUB_REPOSITORY.split("/")
     ) {
-      console.log(
-        core.getInput("threshold"),
-        core.getInput("strict"),
-        sizes.find(e => e.gzip > core.getInput("threshold")) &&
-          core.getInput("strict")
-          ? "REQUEST_CHANGES"
-          : "COMMENT"
-      );
       Promise.all(requests).then(() => {
-        const [owner, repositoryName] = process.env.GITHUB_REPOSITORY.split(
-          "/"
-        );
-        octokit.pulls.createReview({
-          owner,
-          repo: repositoryName,
-          pull_number: process.env.GITHUB_REF.split("refs/pull/")[1].split(
-            "/"
-          )[0],
-          body: utils.getMarkDownTable(sizes),
-          event:
+        if (sizes.length) {
+          console.log(
+            core.getInput("threshold"),
+            core.getInput("strict"),
             sizes.find(e => e.gzip > core.getInput("threshold")) &&
-            core.getInput("strict")
+              core.getInput("strict")
               ? "REQUEST_CHANGES"
               : "COMMENT"
-        });
+          );
+          const [owner, repositoryName] = process.env.GITHUB_REPOSITORY.split(
+            "/"
+          );
+          octokit.pulls.createReview({
+            owner,
+            repo: repositoryName,
+            pull_number: process.env.GITHUB_REF.split("refs/pull/")[1].split(
+              "/"
+            )[0],
+            body: utils.getMarkDownTable(sizes),
+            event:
+              sizes.find(e => e.gzip > core.getInput("threshold")) &&
+              core.getInput("strict")
+                ? "REQUEST_CHANGES"
+                : "COMMENT"
+          });
+        }
       });
     } else {
       const [owner, repositoryName] = process.env.GITHUB_REPOSITORY.split("/");
