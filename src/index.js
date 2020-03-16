@@ -76,6 +76,8 @@ exec(
           packageList: ${JSON.stringify(packageList)}
           GITHUB_BASE_REF: ${process.env.GITHUB_BASE_REF}
           GITHUB_HEAD_REF: ${process.env.GITHUB_HEAD_REF}
+          GITHUB_REPOSITORY: ${process.env.GITHUB_REPOSITORY}
+          GITHUB_REF: ${process.env.GITHUB_REF}
           requests: ${JSON.stringify(requests)}
           sizes: ${JSON.stringify(sizes)}
         `,
