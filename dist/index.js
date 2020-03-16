@@ -5830,9 +5830,13 @@ exec(
         pull_number: process.env.GITHUB_REF.split("refs/pull/")[1].split(
           "/"
         )[0],
-        body: `requests: ${JSON.stringify(
-          requests
-        )} \n\n sizes: ${JSON.stringify(sizes)}`,
+        body: `
+          packageList: ${packageList}
+          GITHUB_BASE_REF: ${process.env.GITHUB_BASE_REF}
+          GITHUB_HEAD_REF: ${process.env.GITHUB_HEAD_REF}
+          requests: ${JSON.stringify(requests)}
+          sizes: ${JSON.stringify(sizes)}
+        `,
         event: "COMMENT"
       });
     }
